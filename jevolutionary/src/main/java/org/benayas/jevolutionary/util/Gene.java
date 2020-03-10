@@ -10,7 +10,7 @@ import java.util.List;
  *	A single permutator has its own ID, and receives a list of permutable objects.
  *	The main function of this object is to pass a value to every permutable object
  */
-public class Permutator implements Serializable, Comparable<Permutator>{
+public class Gene implements Serializable, Comparable<Gene>{
 
 	private static final long serialVersionUID = 1L;
 	private int id;
@@ -19,9 +19,9 @@ public class Permutator implements Serializable, Comparable<Permutator>{
 	private String domain;
 	private List<IPermutable> list;
 	
-	public Permutator() {}
+	public Gene() {}
 	
-	public Permutator(int id, double min, double max, String domain){
+	public Gene(int id, double min, double max, String domain){
 		this.setId( id );
 		this.min = min;
 		this.max = max;
@@ -29,7 +29,7 @@ public class Permutator implements Serializable, Comparable<Permutator>{
 		this.list = new ArrayList<>();
 	}
 	
-	public Permutator(int id, List<IPermutable> list){
+	public Gene(int id, List<IPermutable> list){
 		this( id, 0, 0, null );
 		setList(list);
 	}
@@ -79,7 +79,7 @@ public class Permutator implements Serializable, Comparable<Permutator>{
 	}
 
 	@Override
-	public int compareTo(Permutator p) {
+	public int compareTo(Gene p) {
 		return id < p.id ? -1 : id > p.id ? 1 : 0;
 	}
 }

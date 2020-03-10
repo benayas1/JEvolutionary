@@ -13,7 +13,7 @@ import org.benayas.jevolutionary.operators.replacement.IReplacement;
 import org.benayas.jevolutionary.operators.selection.ISelection;
 import org.benayas.jevolutionary.stop.IStopCondition;
 
-public class GeneticAlgorithm extends EvolutiveComputation<IndividualVector, ChromosomeStructure>{
+public class GeneticAlgorithm extends EvolutionaryComputation<IndividualVector, ChromosomeStructure>{
 
 	//Operators
 	private ISelection<IndividualVector> selector;
@@ -73,5 +73,4 @@ public class GeneticAlgorithm extends EvolutiveComputation<IndividualVector, Chr
 		return function.fitness( o );
 	}*/
 	
-	//This method is used only for Trading DB purposes
 }

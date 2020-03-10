@@ -1,27 +1,32 @@
 package org.benayas.jevolutionary.ga;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.benayas.jevolutionary.IBaseStructure;
 import org.benayas.jevolutionary.domain.IDomain;
-import org.benayas.jevolutionary.util.Permutator;
+import org.benayas.jevolutionary.util.Gene;
 
 public class ChromosomeStructure implements IBaseStructure {
 	
 	private IDomain<?>[] params;
 	
-	public ChromosomeStructure( List<Permutator> permutators ){
-		this.params = new IDomain<?>[permutators.size()];
-		Collections.sort( permutators );
+	public ChromosomeStructure( List<Gene> genes ){
+		this.params = new IDomain<?>[genes.size()];
+		Collections.sort( genes );
 		
-		for ( int i = 0; i < permutators.size(); i++){
-			params[i] = IDomain.Factory.create( permutators.get( i ) );
+		for ( int i = 0; i < genes.size(); i++){
+			params[i] = IDomain.Factory.create( genes.get( i ) );
 		}
 	}
 	
-	public ChromosomeStructure( IDomain<?>[] params ){
+	public ChromosomeStructure( Gene... genes ){
+		this( Arrays.asList(genes) );
+	}
+	
+	public ChromosomeStructure( IDomain<?>... params ){
 		this.params = params;
 	}
 	
@@ -33,10 +38,10 @@ public class ChromosomeStructure implements IBaseStructure {
 		return params.length;
 	}
 	
-	public List<Permutator> getPermutators(){
-		List<Permutator> list = new ArrayList<>();
+	public List<Gene> getPermutators(){
+		List<Gene> list = new ArrayList<>();
 		for (int i = 0; i < params.length; i++){
-			list.add( new Permutator( i, (Double)params[i].lowerBound(), (Double)params[i].upperBound(), params[i].type().getName() ) );
+			list.add( new Gene( i, (Double)params[i].lowerBound(), (Double)params[i].upperBound(), params[i].type().getName() ) );
 		}
 		return list;
 	}

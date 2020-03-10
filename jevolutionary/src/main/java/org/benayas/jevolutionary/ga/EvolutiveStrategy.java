@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.benayas.jevolutionary.Generation;
 import org.benayas.jevolutionary.IOperator;
-import org.benayas.jevolutionary.algorithms.EvolutiveComputation;
+import org.benayas.jevolutionary.algorithms.EvolutionaryComputation;
 import org.benayas.jevolutionary.operators.mutation.IMutation;
 import org.benayas.jevolutionary.operators.replacement.IReplacement;
 import org.benayas.jevolutionary.operators.selection.ISelection;
 import org.benayas.jevolutionary.stop.IStopCondition;
 
-public class EvolutiveStrategy extends EvolutiveComputation<IndividualVector, ChromosomeStructure> {
+public class EvolutiveStrategy extends EvolutionaryComputation<IndividualVector, ChromosomeStructure> {
 
 	private ISelection<IndividualVector> selector;
 	private IMutation<IndividualVector,ChromosomeStructure> mutator;

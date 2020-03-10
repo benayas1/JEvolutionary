@@ -14,7 +14,7 @@ import org.benayas.jevolutionary.operators.replacement.IReplacement;
 import org.benayas.jevolutionary.operators.selection.ISelection;
 import org.benayas.jevolutionary.stop.IStopCondition;
 
-public class GGGP extends EvolutiveComputation<IndividualTree, IGrammar> {
+public class GGGP extends EvolutionaryComputation<IndividualTree, IGrammar> {
 	
 	//Operators
 	private ISelection<IndividualTree> selector;

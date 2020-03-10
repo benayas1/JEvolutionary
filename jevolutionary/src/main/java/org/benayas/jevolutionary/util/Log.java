@@ -19,7 +19,7 @@ public class Log {
 		if ( logger == null){
 			ThreadContext.put( "ThreadID", Thread.currentThread().getName() );
 			ThreadContext.put( "ROUTINGKEY", "testingKey" );
-			logger = LogManager.getLogger("benayas.tradingServices.MainClass");		
+			logger = LogManager.getLogger("org.benayas.jevolutionary");		
 		}
 	
 		logger.log(level, msg);

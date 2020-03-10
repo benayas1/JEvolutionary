@@ -23,7 +23,7 @@ import org.benayas.jevolutionary.util.UtilReflect;
 
 
 
-public abstract class EvolutiveComputation< T extends Individual, R extends IBaseStructure> {
+public abstract class EvolutionaryComputation< T extends Individual, R extends IBaseStructure> {
 	
 	public final static int NO_OUTPUT = 0;
 	public final static int MINIMUM = 1;
@@ -38,7 +38,7 @@ public abstract class EvolutiveComputation< T extends Individual, R extends IBas
 	private List<Object[]> export;
 	private String exportFilename;
 	
-	protected EvolutiveComputation( R structure, int elements, int loops, IStopCondition stop, int verbose ){
+	protected EvolutionaryComputation( R structure, int elements, int loops, IStopCondition stop, int verbose ){
 		this.structure = structure;
 		this.elements = elements;
 		this.maxLoops = loops;
@@ -106,13 +106,13 @@ public abstract class EvolutiveComputation< T extends Individual, R extends IBas
 		setExportAnalysis();
 	}
 	
-	public static EvolutiveComputation<?,?> create(String className, ChromosomeStructure s, int n, int loops, IStopCondition stop, IOperator[] operators, int verbose ){	 
+	public static EvolutionaryComputation<?,?> create(String className, ChromosomeStructure s, int n, int loops, IStopCondition stop, IOperator[] operators, int verbose ){	 
 	    Class<?> clazz = null;
 	    try {
 	    	//Load the class
 	    	clazz = Class.forName( className );
 	    	
-	    	EvolutiveComputation<?,?> evolutive = (EvolutiveComputation<?,?>) UtilReflect.create( clazz, new Object[]{ s, n, loops, verbose, stop, operators } );	    	
+	    	EvolutionaryComputation<?,?> evolutive = (EvolutionaryComputation<?,?>) UtilReflect.create( clazz, new Object[]{ s, n, loops, verbose, stop, operators } );	    	
 	        	                
 	        return evolutive;
 	        
@@ -123,7 +123,7 @@ public abstract class EvolutiveComputation< T extends Individual, R extends IBas
 	    return null;
 	}	
 	
-	public static EvolutiveComputation<?,?> create(String className, ChromosomeStructure s, int n, int loops, IStopCondition stop, Map<String,IOperator> operators, int verbose ){	 
+	public static EvolutionaryComputation<?,?> create(String className, ChromosomeStructure s, int n, int loops, IStopCondition stop, Map<String,IOperator> operators, int verbose ){	 
 	    IOperator[] ops = new IOperator[ operators.size() ];
 	    ops[0] = operators.get("selection");
 	    ops[1] = operators.get("cross");

@@ -1,6 +1,6 @@
 package org.benayas.jevolutionary.domain;
 
-import org.benayas.jevolutionary.util.Permutator;
+import org.benayas.jevolutionary.util.Gene;
 
 public interface IDomain<T> {
 	
@@ -28,7 +28,7 @@ public interface IDomain<T> {
 			return null;	
 		}
 		
-		public static IDomain<?> create( Permutator p ){
+		public static IDomain<?> create( Gene p ){
 			
 			if ( p.getDomain().equals( DOUBLE) ){
 				return create( p.getMin(), p.getMax() );
