@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="30" status="debug">
+    <!-- monitorInterval: automatic reload every 30sec on changes -->
+    <!-- status: log4j2 internal logging (not for the app) -->
+ 
+    <Properties>
+        <Property name="all-path">logs/all/</Property>
+        <Property name="email-path">logs/email/</Property>
+        <Property name="pattern">%d{[yyyy-MM-dd HH:mm:ss]} %-5level [%t] %c{1} - %msg %n</Property>
+        
+<!--         <Property name="filename-server2-all">logs/server2-all.log</Property>
+        <Property name="filename-server2-error">logs/server2-err.log</Property> -->
+    </Properties>
+ 
+    <Appenders>
+        <!-- the standard-console-appender -->
+        <Console name="appender-Console-all" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}" />
+        </Console>
+ 
+        <!-- Regulas file appenders -->
+<!--         <File name="appender-server-1-file" fileName="${filename-server1-file}" append="false">
+            <PatternLayout pattern="${pattern}" />
+        </File>
+        <File name="appender-server-1-email" fileName="${filename-server1-email}" append="true">
+            <PatternLayout pattern="${pattern}" />
+        </File>  -->      
+		
+		<RollingFile name="RollingFile-all" fileName="${all-path}${ctx:ThreadID}.log"
+				 filePattern="${all-path}$${date:yyyy-MM}/${ctx:ThreadID}-%d{yyyy-MM-dd}-%i.log" append = "true">
+			<PatternLayout>
+					<pattern>${pattern}</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/><!-- Rotated everyday -->
+					<!--	<SizeBasedTriggeringPolicy size="100 MB"/>  Or every 100 MB -->
+			</Policies>
+		</RollingFile>  
+		       
+		
+		<RollingFile name="RollingFile-email" fileName="${email-path}${ctx:ThreadID}.log"
+				 filePattern="${email-path}$${date:yyyy-MM}/${ctx:ThreadID}-%d{yyyy-MM-dd}-%i.log" append = "true">
+			<PatternLayout>
+					<pattern>${pattern}</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/><!-- Rotated everyday -->
+					<!--	<SizeBasedTriggeringPolicy size="100 MB"/>  Or every 100 MB -->
+			</Policies>
+		</RollingFile>             
+        
+        <Routing name="routing-all">
+		  <Routes pattern="${ctx:ThreadID}">
+		 
+		    <!-- This route is chosen if ThreadContext has a value for ROUTINGKEY
+		         (other than the value 'special' which had its own route above).
+		         The value dynamically determines the name of the log file. -->
+		     <Route ref = "RollingFile-all" /> 
+		    
+		  </Routes>
+		</Routing>
+		
+        <Routing name="routing-email">
+		  <Routes pattern="${ctx:ThreadID}">
+		     <Route ref = "RollingFile-email" /> 	    
+		  </Routes>
+		</Routing>
+    </Appenders>
+ 
+ 
+    <Loggers>
+        <!-- Every configuration must have a root logger. If one is not configured the default root LoggerConfig is ERROR with Console appender attached. -->
+        <Root level="ALL">
+            <AppenderRef ref="appender-Console-all" />
+        </Root>
+ 
+        <!-- server1-loggers -->
+        <!-- additivity means, that parent-logger (in every case the root-logger) will also get the chance to log this stuff -->
+        <Logger name="benayas.tradingEngine.MainClass" additivity="TRUE" level="ALL">
+            <AppenderRef ref="routing-all" level="ALL" />
+            <AppenderRef ref="routing-email" level="INFO" />
+        </Logger>
+ 
+        <!-- server2-loggers -->
+        <!-- additivity means, that parent-logger (in every case the root-logger) will also get the chance to log this stuff -->
+<!--           <Logger name="org.jtaddeus.playground.loggenerator.Server2" additivity="TRUE" level="ALL">
+            <AppenderRef ref="appender-server-2-all" level="ALL" />
+            <AppenderRef ref="appender-server-2-error" level="ERROR" />
+          </Logger> -->
+    </Loggers>
+</Configuration>
